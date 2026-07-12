@@ -20,4 +20,12 @@ class AuthController extends Controller
         }
         return back()->with("error", "Email atau password salah");
     }
+
+    public function logout(Request $request)
+    {
+        if ($request->session()) {
+            $request->session()->flush();
+            return redirect("/login");
+        }
+    }
 }
