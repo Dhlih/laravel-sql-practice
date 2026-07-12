@@ -11,7 +11,7 @@
 
 <body>
     <div class="container h-screen flex items-center justify-center bg-[#ECEFF5]">
-        <div class="max-w-sm w-full">
+        <div class="max-w-xs w-full">
             <h1 class="text-center font-bold text-3xl">Login SiPustaka</h1>
             <div class="rounded-xl p-6 mt-8 bg-white shadow-lg">
                 <form action="/login" method="POST" class="flex flex-col gap-4">
@@ -23,16 +23,46 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="password" class="font-semibold">Password</label>
-                        <input type="password" name="password" placeholder="Masukkan password..."
-                            class="bg-[#ECEFF5] p-2 rounded-lg outline-none">
+                        <div
+                            class="w-full flex items-center justify-between bg-[#ECEFF5] p-2 rounded-lg outline-none gap-4">
+                            <input type="password" name="password" placeholder="Masukkan password..."
+                                class="password-input w-full outline-none">
+                            <button type="button"
+                                class="toggle-password-btn flex items-center justify-center cursor-pointer text-gray-500 hover:text-gray-700">
+                                <i data-feather="eye-off" class="w-5 h-5"></i>
+                            </button>
+                        </div>
                     </div>
-                    <button type="submit" class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-semibold">
+                    <button type="submit"
+                        class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-bold hover:bg-[#E0D3F1] cursor-pointer">
                         Login
                     </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace();
+
+        const passwordInput = document.querySelector(".password-input");
+        const togglePasswordBtn = document.querySelector(".toggle-password-btn");
+
+        togglePasswordBtn.addEventListener("click", () => {
+            const eyeIcon = togglePasswordBtn.querySelector("svg");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.setAttribute("data-feather", "eye");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.setAttribute("data-feather", "eye-off");
+            }
+
+            feather.replace();
+        });
+    </script>
 </body>
 
 </html>
