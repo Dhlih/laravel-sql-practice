@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class BooksController extends Controller
 {
-    public function show_books()
+    public function show_books(Request $request)
     {
-        $books = DB::select("SELECT id, judul, penulis, cover FROM BOOKS");
+        $book_title = $request->input("judul");
+        if ($book_title) {
+            $books = DB::select("SELECT id, judul, penulis, cover FROM BOOKS WHERE judul LIKE ?", ["%$book_title%"]);
+        } else {
+            $books = DB::select("SELECT id, judul, penulis, cover FROM BOOKS");
+        }
         return view("books", ["books" => $books]);
     }
+
+    public function search_books(Request $request) {}
 }
