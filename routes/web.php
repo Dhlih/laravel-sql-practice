@@ -4,16 +4,18 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 # Authentication routes
-Route::get('/login', function () {
-    return view("login");
-});
+Route::get('/login', [AuthController::class, "show_login"]);
 Route::post('/login', [AuthController::class, "login"]);
 Route::post('/logout', [AuthController::class, "logout"]);
 
+# Dashboard routes
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+# Books routes
+Route::get('/buku', [App\Http\Controllers\BooksController::class, 'show_books']);
