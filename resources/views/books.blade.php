@@ -1,68 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Login SiPustaka</title>
-</head>
+@section('title', 'Books')
 
-<body>
-    <div class="container h-screen flex items-center justify-center bg-[#ECEFF5]">
-        <div class="max-w-xs w-full">
-            <h1 class="text-center font-bold text-3xl">Login SiPustaka</h1>
-            <div class="rounded-xl p-6 mt-8 bg-white shadow-lg">
-                <form action="/login" method="POST" class="flex flex-col gap-4">
-                    @csrf
-                    <div class="flex flex-col gap-2">
-                        <label for="email" class="font-semibold">Email</label>
-                        <input type="text" name="email" placeholder="Masukkan email..."
-                            class="bg-[#ECEFF5] p-2 rounded-lg outline-none">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="password" class="font-semibold">Password</label>
-                        <div
-                            class="w-full flex items-center justify-between bg-[#ECEFF5] p-2 rounded-lg outline-none gap-4">
-                            <input type="password" name="password" placeholder="Masukkan password..."
-                                class="password-input w-full outline-none">
-                            <button type="button"
-                                class="toggle-password-btn flex items-center justify-center cursor-pointer text-gray-500 hover:text-gray-700">
-                                <i data-feather="eye-off" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button type="submit"
-                        class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-bold hover:bg-[#E0D3F1] cursor-pointer">
-                        Login
-                    </button>
-                </form>
-            </div>
+@section('content')
+    <div class="flex items-center justify-between mb-10">
+        <h1 class="text-4xl font-bold text-gray-800">Buku</h1>
+
+        <div class="flex items-center gap-4 ">
+            <input type="text" placeholder="Ketik judul buku..."
+                class="max-w-xl w-full bg-white p-2 rounded-lg outline-none">
+            <select class="bg-white p-2 rounded-lg outline-none">
+                <option value="test">Test</option>
+                <option value="test2">Test 2</option>
+                <option value="test3">Test 3</option>
+            </select>
         </div>
     </div>
 
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-        feather.replace();
+    <div class="flex flex-wrap -m-3 bg-white p-2 rounded-xl shadow-lg ">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
 
-        const passwordInput = document.querySelector(".password-input");
-        const togglePasswordBtn = document.querySelector(".toggle-password-btn");
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
 
-        togglePasswordBtn.addEventListener("click", () => {
-            const eyeIcon = togglePasswordBtn.querySelector("svg");
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
 
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.setAttribute("data-feather", "eye");
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.setAttribute("data-feather", "eye-off");
-            }
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
 
-            feather.replace();
-        });
-    </script>
-</body>
 
-</html>
+
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6 ">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-6">
+            <div class="w-full flex flex-col items-center">
+                <img src="book.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                <div class="mt-2 text-center">
+                    <h3 class="text-lg font-semibold">The Alchemist</h3>
+                    <p class="text-gray-500">Paulo Coelho</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@endsection

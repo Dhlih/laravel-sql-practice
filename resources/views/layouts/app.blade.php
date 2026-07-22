@@ -9,13 +9,13 @@
     <title>SiPustaka - @yield('title')</title>
 </head>
 
-<body>
-    <div class="container h-screen flex bg-[#ECEFF5] gap-12">
-        <div class="sidebar max-w-[16rem] w-full bg-white p-6">
-            <h2 class="font-bold text-2xl">SiPustaka</h2>
+<body class="bg-[#ECEFF5]">
+    <div class="min-h-screen w-full flex">
+        <div class="fixed top-0 left-0 max-w-[16rem] h-screen w-64 bg-white p-6 z-10">
+            <h2 class="font-bold text-3xl">SiPustaka</h2>
             <ul class="flex flex-col gap-6 mt-8 ">
                 <li
-                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2 rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
+                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
                     <i data-feather="bar-chart-2"></i>
                     <a href="dashboard">Dashboard</a>
                 </li>
@@ -25,12 +25,12 @@
                     <a href="buku">Buku</a>
                 </li>
                 <li
-                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2 rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
+                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
                     <i data-feather="users"></i>
                     <a href="anggota">Anggota</a>
                 </li>
                 <li
-                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2 rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
+                    class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold">
                     <i data-feather="refresh-ccw"></i>
                     <a href="riwayat">Riwayat</a>
                 </li>
@@ -51,9 +51,9 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-full w-full p-6">
+        <main class="ml-72 mr-12 flex-1 p-8">
             @yield('content')
-        </div>
+        </main>
     </div>
 
     <script src="https://unpkg.com/feather-icons"></script>
