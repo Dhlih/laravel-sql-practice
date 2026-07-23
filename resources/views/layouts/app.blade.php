@@ -15,28 +15,28 @@
             <h2 class="font-bold text-3xl">SiPustaka</h2>
             <ul class="flex flex-col gap-6 mt-8 ">
                 <li>
-                    <a href="dashboard"
+                    <a href="/dashboard"
                         class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('dashboard') ? 'bg-[#F1E8FD] text-purple-500 font-semibold' : '' }}">
                         <i data-feather="bar-chart-2"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="buku"
+                    <a href="/buku"
                         class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('buku') ? 'bg-[#F1E8FD] text-purple-500 font-semibold' : '' }}">
                         <i data-feather="book-open"></i>
                         <span>Buku</span>
                     </a>
                 </li>
                 <li>
-                    <a href="anggota"
+                    <a href="/anggota"
                         class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('anggota') ? 'bg-[#F1E8FD] text-purple-500 font-semibold' : '' }}">
                         <i data-feather="users"></i>
                         <span>Anggota</span>
                     </a>
                 </li>
                 <li>
-                    <a href="riwayat"
+                    <a href="/riwayat"
                         class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('riwayat') ? 'bg-[#F1E8FD] text-purple-500 font-semibold' : '' }}">
                         <i data-feather="refresh-ccw"></i>
                         <span>Riwayat</span>
