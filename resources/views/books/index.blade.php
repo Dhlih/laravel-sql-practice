@@ -29,7 +29,7 @@
         @foreach ($books as $book)
             <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-6">
                 <div class="w-full flex flex-col items-center">
-                    <img src={{ $book->cover }} class="w-full aspect-[3/4] object-cover rounded-lg" alt="The Alchemist">
+                    <img src="{{ asset('storage/' . $book->cover) }}" class="w-full aspect-[3/4] object-cover rounded-lg" alt="{{ $book->judul }}">
                     <div class="mt-4 text-center">
                         <h3 class="text-xl font-semibold">{{ $book->judul }}</h3>
                         <p class="text-gray-500 ">{{ $book->penulis }}</p>
