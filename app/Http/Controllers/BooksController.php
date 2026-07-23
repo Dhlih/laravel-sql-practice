@@ -16,8 +16,11 @@ class BooksController extends Controller
         } else {
             $books = DB::select("SELECT id, judul, penulis, cover FROM BOOKS");
         }
-        return view("books", ["books" => $books]);
+        return view("books.index", ["books" => $books]);
     }
 
-    public function search_books(Request $request) {}
+    public function show_create_book()
+    {
+        return view("books.create");
+    }
 }
