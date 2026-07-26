@@ -15,7 +15,7 @@
         <div class="w-full">
             <div class="flex items-center justify-between mb-2 ">
                 <div>
-                    <span>{{ $book->penulis }}</span>
+                    <span class="text-lg">{{ $book->penulis }}</span>
                     <h3 class="text-2xl font-bold">{{ $book->judul }}</h3>
                 </div>
                 <a href="/buku/{{ $book->id }}/edit"
@@ -25,7 +25,7 @@
                 </a>
             </div>
 
-            <p class="mt-2 whitespace-pre-line leading-snug">{{ $book->deskripsi }}</p>
+            <p class="mt-2 whitespace-pre-line leading-snug opacity-85">{{ $book->deskripsi }}</p>
 
         </div>
     </div>
