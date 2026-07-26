@@ -16,12 +16,22 @@ class AuthController extends Controller
         $email = $request->input("email");
         $password = $request->input("password");
 
-        if ($email  !== "SiPustaka@gmail.com" && $password !== "sipustakamajuterus") {
-            return back()->with("error", "Email atau password salah");
+        // Ambil data dari file config yang membaca .env
+        $adminEmail = config("services.admin.email");
+        $adminPassword = config("services.admin.password");
+
+        // Cek kecocokan email dan password
+        if ($email === $adminEmail && $password === $adminPassword) {
+            // Amankan ID sesi dari peretasan (Session Fixation)
+            $request->session()->regenerate();
+
+            // Simpan tanda login di session
+            session(["user_id" => 1, "user_email" => $email]);
+
+            return redirect("/dashboard");
         }
 
-        session(["user_id" => 1, "user_email" => $email]);
-        return redirect("/dashboard");
+        return back()->with("error", "Email atau password salah");
     }
 
     public function logout(Request $request)
