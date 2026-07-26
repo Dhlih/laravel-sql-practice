@@ -32,6 +32,7 @@ Route::middleware([Authenticate::class])->group(function () {
     # Books dynamic routes
     Route::get('/buku/{id}', [App\Http\Controllers\BooksController::class, 'show_book']);
     Route::put('/buku/{id}', [App\Http\Controllers\BooksController::class, 'edit_book']);
+    Route::delete('/buku/{id}', [App\Http\Controllers\BooksController::class, 'delete_book']);
     Route::get('/buku/{id}/edit', [App\Http\Controllers\BooksController::class, 'show_edit_book']);
     Route::get('/buku/{id}/edit', [App\Http\Controllers\BooksController::class, 'show_edit_book']);
 });
