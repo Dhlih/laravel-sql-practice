@@ -10,7 +10,7 @@
         <h1 class="text-4xl font-bold text-gray-800">Edit Buku</h1>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg p-6 flex gap-8 max-w-2xl w-full">
+    <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl w-full">
         <form action="/buku/{{ $book->id }}" method="POST" enctype="multipart/form-data"
             class="flex flex-col gap-4 w-full">
             @csrf
@@ -46,6 +46,12 @@
 
             </div>
             <button type="submit" class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-bold hover:bg-[#E0D3F1] cursor-pointer">Edit
+                Buku</button>
+        </form>
+        <form action="/buku/{{ $book->id }}" method="POST" class="mt-2">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="w-full bg-red-500 rounded-xl p-3 mt-2 font-bold hover:bg-red-400 cursor-pointer">Hapus
                 Buku</button>
         </form>
     </div>
