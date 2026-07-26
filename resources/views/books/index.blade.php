@@ -6,7 +6,7 @@
     <div class="flex items-center justify-between mb-10">
         <h1 class="text-4xl font-bold text-gray-800">Buku</h1>
 
-        <form action="/buku" method="GET" class="max-w-sm w-full flex items-center gap-4 ">
+        <form action="/buku" method="GET" class="max-w-xs w-full flex items-center gap-4 ">
             <input type="text" name="judul" placeholder="Ketik judul buku..."
                 class="w-full bg-white p-2 rounded-lg outline-none shadow-lg" value="{{ request('judul') }}">
 
