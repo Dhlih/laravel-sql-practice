@@ -12,7 +12,9 @@
 <body class="bg-[#ECEFF5]">
     <div class="min-h-screen w-full flex">
         <div class="fixed top-0 left-0 max-w-[16rem] h-screen w-64 bg-white p-6 z-10">
-            <h2 class="font-bold text-3xl">SiPustaka</h2>
+            <a class="cursor-pointer" href="/dashboard">
+                <h2 class="font-bold text-3xl ">SiPustaka</h2>
+            </a>
             <ul class="flex flex-col gap-6 mt-8 ">
                 <li>
                     <a href="/dashboard"
