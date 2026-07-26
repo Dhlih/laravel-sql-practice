@@ -73,4 +73,9 @@ class BooksController extends Controller
         DB::insert("INSERT INTO BOOKS (judul, penulis, deskripsi, cover) VALUES (?, ?, ?, ?)", [$judul, $penulis, $deskripsi, $cover_path]);
         return redirect("/buku");
     }
+
+    public function delete_book(string $id) {
+        DB::delete("DELETE FROM BOOKS WHERE id = ?", [$id]);
+        return redirect("/buku");
+    }
 }
