@@ -3,7 +3,7 @@
 @section('title', 'Books')
 
 @section('content')
-    <div class="flex items-center justify-between mb-10">
+    <div class="max-w-5xl w-full flex items-center justify-between mb-10">
         <h1 class="text-4xl font-bold text-gray-800">Anggota</h1>
 
         <form action="/anggota" method="GET" class="max-w-xs w-full flex items-center gap-4 ">
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Kontainer Pembungkus Tabel -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         <div>
             <table class="w-full text-left border-collapse">
                 <!-- Header Tabel -->
@@ -35,25 +35,31 @@
                 <!-- Isi Tabel -->
                 <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
                     {{-- Contoh Baris Data (Nanti diganti dengan @foreach ($members as $index => $member)) --}}
-                    @foreach ($members as $member) 
-                    <tr class="hover:bg-purple-50/40 transition duration-150">
-                        <td class="py-4 px-6 font-medium text-gray-900">{{ $loop->iteration }}</td>
-                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->kode_member }}</td>
-                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->nama }}</td>
-                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->telepon }}</td>
-                        <td class="py-4 px-6 text-center">
-                            <div class="flex items-center justify-center gap-2">
-                                <a href="/anggota/1/edit" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
-                                    title="Edit">
-                                    <i data-feather="edit-2" class="w-4 h-4"></i>
-                                </a>
-                                <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition cursor-pointer"
-                                    title="Hapus">
-                                    <i data-feather="trash-2" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($members as $member)
+                        <tr class="hover:bg-purple-50/40 transition duration-150">
+                            <td class="py-4 px-6 font-medium text-gray-900">{{ $loop->iteration }}</td>
+                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->kode_member }}</td>
+                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->nama }}</td>
+                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->telepon }}</td>
+                            <td class="py-4 px-6 text-center">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button class="edit-member-btn p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                                        title="Edit" data-id="{{ $member->id }}" data-nama="{{ $member->nama }}"
+                                        data-telepon="{{ $member->telepon }}">
+                                        <i data-feather="edit-2" class="w-4 h-4"></i>
+                                    </button>
+                                    <form action="/anggota/{{ $member->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                                            title="Hapus">
+                                            <i data-feather="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -67,13 +73,13 @@
 
     <!-- Modal Backdrop -->
     <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-        <!-- Kotak Modal -->
-        <div class="modal max-w-sm w-full rounded-xl bg-white shadow-2xl p-6 relative">
+        <!-- Kotak Modal Menambahkan Anggota -->
+        <div class="add-member-modal max-w-sm w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
             <form action="/anggota" method="POST" class="flex flex-col gap-4">
                 <h3 class="text-xl font-bold text-gray-800 ">Tambah Anggota</h3>
                 <input type="text" name="nama" placeholder="Ketik nama anggota..."
                     class="w-full border border-gray-200 p-2 rounded-lg outline-none">
-                <input type="text" name="telepon" placeholder="Ketik telepon anggota..."
+                <input type="number" name="telepon" placeholder="Ketik telepon anggota..."
                     class="w-full border border-gray-200 p-2 rounded-lg outline-none">
                 <button
                     class="bg-[#E5D5FC] p-2 rounded-lg font-semibold shadow-lg mt-2 hover:bg-[#F1E8FD] transition cursor-pointer">Tambah
@@ -81,27 +87,90 @@
             </form>
 
             <div class="absolute top-3 right-3">
-                <button class="close-popup-btn text-gray-500 hover:text-gray-700 transition cursor-pointer" title="Tutup">
+                <button class="close-add-popup-btn text-gray-500 hover:text-gray-700 transition cursor-pointer"
+                    title="Tutup">
                     <i data-feather="x" class="w-6 h-6"></i>
                 </button>
-
             </div>
+        </div>
 
+        <!-- Kotak Modal Mengedit Anggota -->
+        <div class="edit-member-modal max-w-sm w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
+            <form id="edit-form" method="POST" class="flex flex-col gap-4">
+                @csrf
+                @method('PUT')
+                <h3 class="text-xl font-bold text-gray-800 ">Edit Anggota</h3>
+                <input type="text" name="nama" id="edit-nama" placeholder="Ketik nama anggota..."
+                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
+                <input type="number" name="telepon" id="edit-telepon" placeholder="Ketik telepon anggota..."
+                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
+                <button
+                    class="bg-[#E5D5FC] p-2 rounded-lg font-semibold shadow-lg mt-2 hover:bg-[#F1E8FD] transition cursor-pointer">Edit
+                    anggota</button>
+            </form>
+
+            <div class="absolute top-3 right-3">
+                <button class="close-edit-popup-btn text-gray-500 hover:text-gray-700 transition cursor-pointer"
+                    title="Tutup">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        const addMemberBtn = document.querySelector(".add-member-btn");
         const backdrop = document.querySelector(".backdrop");
+
+        // Tambah Anggota
+        const addMemberBtn = document.querySelector(".add-member-btn");
+        const addMemberPoUp = document.querySelector(".add-member-modal");
+        const closeAddPopupBtn = document.querySelector(".close-add-popup-btn");
+
         addMemberBtn.addEventListener("click", showPopUp = () => {
             backdrop.classList.remove("hidden");
             backdrop.classList.add("flex");
+            addMemberPoUp.classList.remove("hidden");
         })
 
-        const closePopupBtn = document.querySelector(".close-popup-btn");
-        closePopupBtn.addEventListener("click", hidePopUp = () => {
+        closeAddPopupBtn.addEventListener("click", hideAddMemberPopUp = () => {
             backdrop.classList.remove("flex");
             backdrop.classList.add("hidden");
+            addMemberPoUp.classList.add("hidden");
+        })
+
+        // Edit Anggota
+        const editMemberPoUp = document.querySelector(".edit-member-modal");
+        const editMemberBtns = document.querySelectorAll(".edit-member-btn");
+        const closeEditPopupBtn = document.querySelector(".close-edit-popup-btn");
+
+        const editForm = document.querySelector("#edit-form");
+        const editNamaInput = document.querySelector("#edit-nama");
+        const editTeleponInput = document.querySelector("#edit-telepon");
+
+        // Loop seluruh tombol edit di setiap baris tabel
+        editMemberBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Ambil data dari data-id, data-nama, data-telepon
+                const id = btn.dataset.id;
+                const nama = btn.dataset.nama;
+                const telepon = btn.dataset.telepon;
+
+                // Set action form dan value input modal
+                editForm.action = `/anggota/${id}`;
+                editNamaInput.value = nama;
+                editTeleponInput.value = telepon;
+
+                // Tampilkan modal
+                backdrop.classList.remove("hidden");
+                backdrop.classList.add("flex");
+                editMemberPoUp.classList.remove("hidden");
+            });
+        });
+
+        closeEditPopupBtn.addEventListener("click", hideEditMemberPopUp = () => {
+            backdrop.classList.remove("flex");
+            backdrop.classList.add("hidden");
+            editMemberPoUp.classList.add("hidden");
         })
     </script>
 @endsection
