@@ -22,9 +22,9 @@ class MembersController extends Controller
     {
         $member_name = $request->input("nama");
         if ($member_name) {
-            $members = DB::select("SELECT id, nama, telepon FROM MEMBERS WHERE nama LIKE ?", ["%$member_name%"]);
+            $members = DB::select("SELECT id, kode_member, nama, telepon FROM MEMBERS WHERE nama LIKE ?", ["%$member_name%"]);
         } else {
-            $members = DB::select("SELECT id, nama, telepon FROM MEMBERS");
+            $members = DB::select("SELECT id, kode_member, nama, telepon FROM MEMBERS");
         }
         return view("members.index", ["members" => $members]);
     }
