@@ -43,4 +43,8 @@ Route::middleware([Authenticate::class])->group(function () {
     # Members dynamic routes
     Route::put('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'edit_member']);
     Route::delete('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'delete_member']);
+
+    # Borrowings static routes
+    Route::get('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'show_borrowings']);
+    
 });
