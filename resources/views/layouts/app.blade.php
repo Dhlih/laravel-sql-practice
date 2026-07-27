@@ -16,13 +16,13 @@
                     <h2 class="font-bold text-3xl ">SiPustaka</h2>
                 </a>
                 <ul class="flex flex-col gap-6 mt-8 ">
-                    <li>
+                    {{-- <li>
                         <a href="/dashboard"
                             class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('dashboard') ? 'bg-[#F1E8FD] text-purple-500 font-semibold shadow-lg' : '' }}">
                             <i data-feather="bar-chart-2"></i>
                             <span>Dashboard</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/buku"
                             class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('buku') ? 'bg-[#F1E8FD] text-purple-500 font-semibold shadow-lg' : '' }}">
@@ -38,10 +38,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/riwayat"
-                            class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('riwayat') ? 'bg-[#F1E8FD] text-purple-500 font-semibold shadow-lg' : '' }}">
+                        <a href="/peminjaman"
+                            class="flex items-center gap-4 hover:bg-[#F1E8FD] p-2  rounded-lg cursor-pointer hover:text-purple-500 hover:font-semibold {{ request()->is('peminjaman') ? 'bg-[#F1E8FD] text-purple-500 font-semibold shadow-lg' : '' }}">
                             <i data-feather="refresh-ccw"></i>
-                            <span>Riwayat</span>
+                            <span>Peminjaman</span>
                         </a>
                     </li>
                 </ul>
