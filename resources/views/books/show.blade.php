@@ -10,8 +10,8 @@
         <h1 class="text-4xl font-bold text-gray-800">Detail Buku</h1>
     </div>
 
-    <div class="max-w-4xl w-full flex bg-white rounded-xl shadow-lg gap-8 p-6">
-        <img src="{{ asset('storage/' . $book->cover) }}" alt="cover buku" class="w-1/3 rounded-lg">
+    <div class="max-w-5xl w-full flex bg-white rounded-xl shadow-lg gap-8 p-6">
+        <img src="{{ asset('storage/' . $book->cover) }}" alt="cover buku" class="w-1/3 h-1/3 rounded-lg">
         <div class="w-full">
             <div class="flex items-center justify-between mb-2 ">
                 <div>
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="max-w-4xl w-full bg-white rounded-xl shadow-lg gap-8 p-6 mt-8">
+    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg gap-8 p-6 mt-8">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold">Riwayat Peminjaman</h3>
             <select name="peminjaman" id="" class="bg-[#ECEFF5] p-2 rounded-lg outline-none">
