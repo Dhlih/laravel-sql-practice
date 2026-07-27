@@ -35,7 +35,7 @@
                 <!-- Isi Tabel -->
                 <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
                     {{-- Contoh Baris Data (Nanti diganti dengan @foreach ($members as $index => $member)) --}}
-                    @foreach ($members as $member)
+                    @forelse ($members as $member)
                         <tr class="hover:bg-purple-50/40 transition duration-150">
                             <td class="py-4 px-6 font-medium text-gray-900">{{ $loop->iteration }}</td>
                             <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->kode_member }}</td>
@@ -60,7 +60,13 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="py-4 px-6 text-center text-gray-500">
+                                Tidak ada anggota yang ditemukan.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
