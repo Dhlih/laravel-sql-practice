@@ -38,12 +38,9 @@ Route::middleware([Authenticate::class])->group(function () {
 
     # Members static routes
     Route::get('/anggota', [App\Http\Controllers\MembersController::class, 'show_members']);
-    Route::get('/anggota/tambah', [App\Http\Controllers\MembersController::class, 'show_create_member']);
     Route::post('/anggota', [App\Http\Controllers\MembersController::class, 'add_member']);
 
     # Members dynamic routes
-    Route::get('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'show_member']);
     Route::put('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'edit_member']);
     Route::delete('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'delete_member']);
-    Route::get('/anggota/{id}/edit', [App\Http\Controllers\MembersController::class, 'show_edit_member']);
 });
