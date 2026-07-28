@@ -4,8 +4,9 @@
 
 @section('content')
     <div class="flex items-center gap-4 mb-10">
-        <a href="/buku" class="bg-purple-200 p-2 rounded-full cursor-pointer">
-            <i data-feather="arrow-left" class="w-6 h-6"></i>
+        <a href="/buku"
+            class="w-10 h-10 bg-white hover:bg-[#F1E8FD] text-gray-700 hover:text-purple-700 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <i data-feather="arrow-left" class="w-5 h-5"></i>
         </a>
         <h1 class="text-4xl font-bold text-gray-800">Detail Buku</h1>
     </div>
@@ -30,18 +31,7 @@
         </div>
     </div>
 
-    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg gap-8 p-6 mt-8">
-        <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold">Riwayat Peminjaman</h3>
-            <select name="peminjaman" id="" class="bg-[#ECEFF5] p-2 rounded-lg outline-none">
-                <option value="">Hari ini</option>
-                <option value="">7 Hari yang lalu</option>
-                <option value="">30 Hari yang lalu</option>
-            </select>
-        </div>
-        <span>Jumlah Peminjam : 10</span>
 
-    </div>
 
 
 @endsection
