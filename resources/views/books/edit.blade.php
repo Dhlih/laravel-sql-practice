@@ -4,9 +4,10 @@
 
 @section('content')
     <div class="flex items-center gap-4 mb-10">
-        <a href="/buku" class="bg-purple-200 p-2 rounded-full cursor-pointer">
-            <i data-feather="arrow-left" class="w-6 h-6"></i>
-        </a>
+       <a href="/buku"
+                class="w-10 h-10 bg-white hover:bg-[#F1E8FD] text-gray-700 hover:text-purple-700 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer">
+                <i data-feather="arrow-left" class="w-5 h-5"></i>
+            </a>
         <h1 class="text-4xl font-bold text-gray-800">Edit Buku</h1>
     </div>
 
@@ -51,7 +52,8 @@
         <form action="/buku/{{ $book->id }}" method="POST" class="mt-2">
             @csrf
             @method('DELETE')
-            <button type="submit" class="w-full bg-red-500 rounded-xl p-3 mt-2 font-bold hover:bg-red-400 cursor-pointer">Hapus
+            <button type="submit"
+                class="w-full bg-red-500 rounded-xl p-3 mt-2 font-bold hover:bg-red-400 cursor-pointer">Hapus
                 Buku</button>
         </form>
     </div>
