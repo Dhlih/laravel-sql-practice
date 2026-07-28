@@ -46,5 +46,5 @@ Route::middleware([Authenticate::class])->group(function () {
 
     # Borrowings static routes
     Route::get('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'show_borrowings']);
-    
+    Route::get('/peminjaman/{id}', [App\Http\Controllers\BorrowingsController::class, 'show_borrowing']);
 });
