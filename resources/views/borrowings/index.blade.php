@@ -30,6 +30,7 @@
                         <th class="py-4 px-6 font-semibold">Tanggal Pinjam</th>
                         <th class="py-4 px-6 font-semibold">Tanggal Kembali</th>
                         <th class="py-4 px-9 font-semibold">Status</th>
+                        <th class="py-4 px-9 font-semibold">Aksi</th>
                     </tr>
                 </thead>
 
@@ -41,14 +42,24 @@
                             <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->judul_buku }}</td>
                             <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->nama_peminjam }}</td>
                             <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->tanggal_pinjam }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->tanggal_kembali_seharusnya }}</td>
+                            <td class="py-4 px-6 font-semibold text-gray-800">
+                                {{ $borrowing->tanggal_kembali_seharusnya }}</td>
                             <td class="py-4 px-6 font-semibold text-gray-800  ">
-                                <span class="rounded-full px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">{{ $borrowing->status }}</span>
+                                <span
+                                    class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">{{ $borrowing->status }}</span>
+                            </td>
+                            <td class="py-4 px-6 text-center">
+                                <a href="/peminjaman/{{ $borrowing->id }}"
+                                    class="bg-[#F1E8FD] hover:bg-[#E5D5FC] text-purple-800 shadow-lg p-2 px-3 rounded-lg font-semibold text-xs transition inline-flex items-center gap-1">
+                                    <i data-feather="eye" class="w-4 h-4"></i>
+                                    <span>Detail</span>
+                                </a>
                             </td>
                         </tr>
-                        @empty
+                    @empty
                         <tr>
-                            <td colspan="6" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman</td>
+                            <td colspan="6" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman
+                            </td>
                         </tr>
                     @endforelse
 
