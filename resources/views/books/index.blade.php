@@ -23,7 +23,7 @@
                 <div class="w-full flex flex-col items-center">
                     <a href="/buku/{{ $book->id }}">
                         <img src="{{ asset('storage/' . $book->cover) }}"
-                            class="w-full aspect-[3/4] object-cover rounded-lg" alt="{{ $book->judul }}">
+                            class="w-full aspect-[3/4] object-cover rounded-lg hover:scale-105 transition duration-300" alt="{{ $book->judul }}">
                     </a>
                     <div class="mt-4 text-center">
                         <h3 class="text-xl font-semibold">{{ $book->judul }}</h3>
