@@ -11,7 +11,7 @@
                 <i data-feather="arrow-left" class="w-5 h-5"></i>
             </a>
             <div>
-                <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">Detail Peminjaman</h1>
+                <h1 class="md:text-4xl text-3xl font-extrabold text-gray-800 tracking-tight">Detail Peminjaman</h1>
             </div>
         </div>
 

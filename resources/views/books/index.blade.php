@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full md:flex items-center justify-between md:mb-10 mb-8 ">
-        <h1 class="text-4xl font-bold text-gray-800">Buku</h1>
+        <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Buku</h1>
 
         <form action="/buku" method="GET" class="md:max-w-xs w-full flex items-center gap-4 md:mt-0 mt-4">
             <input type="text" name="judul" placeholder="Ketik judul buku..."

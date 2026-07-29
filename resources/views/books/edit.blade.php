@@ -4,11 +4,11 @@
 
 @section('content')
     <div class="flex items-center gap-4 mb-10">
-       <a href="/buku"
-                class="w-10 h-10 bg-white hover:bg-[#F1E8FD] text-gray-700 hover:text-purple-700 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer">
-                <i data-feather="arrow-left" class="w-5 h-5"></i>
-            </a>
-        <h1 class="text-4xl font-bold text-gray-800">Edit Buku</h1>
+        <a href="/buku/{{ $book->id }}"
+            class="w-10 h-10 bg-white hover:bg-[#F1E8FD] text-gray-700 hover:text-purple-700 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <i data-feather="arrow-left" class="w-5 h-5"></i>
+        </a>
+        <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Edit Buku</h1>
     </div>
 
     <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl w-full">
@@ -16,7 +16,7 @@
             class="flex flex-col gap-4 w-full">
             @csrf
             @method('PUT')
-            <div class="flex items-center gap-4">
+            <div class="flex md:flex-row flex-col items-center gap-4">
                 <div class="w-full flex flex-col gap-2">
                     <label for="judul" class="font-semibold">Judul Buku</label>
                     <input type="text" name="judul" placeholder="Judul Buku"
@@ -53,7 +53,7 @@
             @csrf
             @method('DELETE')
             <button type="submit"
-                class="w-full bg-red-500 rounded-xl p-3 mt-2 font-bold hover:bg-red-400 cursor-pointer">Hapus
+                class="w-full bg-red-400 rounded-xl p-3 mt-2 font-bold hover:bg-red-500 cursor-pointer">Hapus
                 Buku</button>
         </form>
     </div>

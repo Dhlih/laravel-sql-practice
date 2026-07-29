@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-5xl w-full flex items-center justify-between mb-10">
-        <h1 class="text-4xl font-bold text-gray-800">Anggota</h1>
+        <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Anggota</h1>
 
         <form action="/anggota" method="GET" class="max-w-xs w-full flex items-center gap-4 ">
             <input type="text" name="nama" placeholder="Ketik nama anggota..."
