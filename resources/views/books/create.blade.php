@@ -3,7 +3,7 @@
 @section('title', 'Books')
 
 @section('content')
-    <div class="flex items-center gap-4 mb-10">
+    <div class="flex items-center gap-4 md:mb-10 mb-8">
         <a href="/buku"
             class="w-10 h-10 bg-white hover:bg-[#F1E8FD] text-gray-700 hover:text-purple-700 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer">
             <i data-feather="arrow-left" class="w-5 h-5"></i>
@@ -13,7 +13,7 @@
 
     <div class="bg-white rounded-xl shadow-lg p-6 flex gap-8 max-w-2xl w-full">
         <form action="/buku" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 w-full">
-            <div class="flex items-center gap-4">
+            <div class="flex md:flex-row flex-col items-center gap-4">
                 <div class="w-full flex flex-col gap-2">
                     <label for="judul" class="font-semibold">Judul Buku</label>
                     <input type="text" name="judul" placeholder="Judul Buku"
@@ -36,9 +36,9 @@
                 <label for="cover" id="upload-placeholder"
                     class="flex flex-col justify-center items-center rounded-lg h-32 border-2 border-dashed border-gray-300 cursor-pointer">
                     <i data-feather="upload" class="w-6 h-6"></i>
-                    <p class="text-sm text-gray-500">
-                        <span class="font-bold text-purple-600">Klik untuk upload</span> atau tarik gambar ke sini
-                    </p>
+                    <span class="text-sm text-gray-500">
+                        Klik untuk upload
+                    </span>
                 </label>
 
                 <img id="cover-preview" src="#" alt="Preview Cover" class="hidden w-full h-full object-cover">
