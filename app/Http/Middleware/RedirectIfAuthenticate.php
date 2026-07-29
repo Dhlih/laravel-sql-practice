@@ -16,7 +16,7 @@ class RedirectIfAuthenticate
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->has("user_id")) {
-            return redirect("/dashboard");
+            return redirect("/buku");
         }
         return $next($request);
     }

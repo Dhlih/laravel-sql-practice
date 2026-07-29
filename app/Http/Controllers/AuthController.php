@@ -28,7 +28,7 @@ class AuthController extends Controller
             // Simpan tanda login di session
             session(["user_id" => 1, "user_email" => $email]);
 
-            return redirect("/dashboard");
+            return redirect("/buku");
         }
 
         return back()->with("error", "Email atau password salah");
