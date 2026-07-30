@@ -3,10 +3,10 @@
 @section('title', 'Books')
 
 @section('content')
-    <div class="max-w-5xl w-full flex items-center justify-between mb-10">
+    <div class="max-w-5xl w-full md:flex items-center justify-between mb-10">
         <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Anggota</h1>
 
-        <form action="/anggota" method="GET" class="max-w-xs w-full flex items-center gap-4 ">
+        <form action="/anggota" method="GET" class="max-w-xs w-full flex items-center gap-4 md:mt-0 mt-4">
             <input type="text" name="nama" placeholder="Ketik nama anggota..."
                 class="w-full bg-white p-2 rounded-lg outline-none shadow-lg" value="{{ request('nama') }}">
 
@@ -18,9 +18,8 @@
     </div>
 
     <!-- Kontainer Pembungkus Tabel -->
-    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div>
-            <table class="w-full text-left border-collapse">
+    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg overflow-hidden border overflow-x-auto border-gray-100">
+            <table class="w-full min-w-[700px] text-left border-collapse ">
                 <!-- Header Tabel -->
                 <thead>
                     <tr class="bg-[#F9F5FF] border-b border-gray-200 text-gray-600 text-xs uppercase tracking-wider">
@@ -43,7 +42,7 @@
                             <td class="py-4 px-6 font-semibold text-gray-800">{{ $member->telepon }}</td>
                             <td class="py-4 px-6 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <button class="edit-member-btn p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                                    <button class="edit-member-btn p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition cursor-pointer"
                                         title="Edit" data-id="{{ $member->id }}" data-nama="{{ $member->nama }}"
                                         data-telepon="{{ $member->telepon }}">
                                         <i data-feather="edit-2" class="w-4 h-4"></i>
@@ -69,7 +68,6 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
     </div>
 
     <button
@@ -78,9 +76,9 @@
     </button>
 
     <!-- Modal Backdrop -->
-    <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
         <!-- Kotak Modal Menambahkan Anggota -->
-        <div class="add-member-modal max-w-sm w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
+        <div class="add-member-modal lg:max-w-sm max-w-md w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
             <form action="/anggota" method="POST" class="flex flex-col gap-4">
                 <h3 class="text-xl font-bold text-gray-800 ">Tambah Anggota</h3>
                 <input type="text" name="nama" placeholder="Ketik nama anggota..."

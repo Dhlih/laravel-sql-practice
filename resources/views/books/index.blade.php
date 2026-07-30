@@ -17,7 +17,7 @@
         </form>
     </div>
 {{-- -m-3 --}}
-    <div class="flex flex-wrap   bg-white rounded-xl shadow-lg ">
+    <div class="flex flex-wrap bg-white rounded-xl shadow-lg ">
         @foreach ($books as $book)
             <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-6">
                 <div class="w-full flex flex-col items-center">
@@ -27,7 +27,7 @@
                     </a>
                     <div class="mt-4 text-center">
                         <h3 class="md:text-xl text-lg font-semibold">{{ Str::limit($book->judul, 13) }}</h3>
-                        <p class="text-gray-500 ">{{ $book->penulis }}</p>
+                        <p class="text-gray-500 ">{{  Str::limit($book->penulis, 13) }}</p>
                     </div>
                 </div>
             </div>

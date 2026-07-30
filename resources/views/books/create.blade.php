@@ -11,7 +11,7 @@
         <h1 class="text-4xl font-bold text-gray-800">Tambah Buku</h1>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg p-6 flex gap-8 max-w-2xl w-full">
+    <div class="bg-white rounded-xl shadow-lg p-6 flex gap-8 lg:max-w-2xl w-full">
         <form action="/buku" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 w-full">
             <div class="flex md:flex-row flex-col items-center gap-4">
                 <div class="w-full flex flex-col gap-2">
@@ -34,7 +34,7 @@
             <div class="flex flex-col gap-2">
                 <label class="font-semibold">Cover Buku</label>
                 <label for="cover" id="upload-placeholder"
-                    class="flex flex-col justify-center items-center rounded-lg h-32 border-2 border-dashed border-gray-300 cursor-pointer">
+                    class="flex flex-col justify-center items-center rounded-lg h-48 border-2 border-dashed border-gray-300 cursor-pointer">
                     <i data-feather="upload" class="w-6 h-6"></i>
                     <span class="text-sm text-gray-500">
                         Klik untuk upload

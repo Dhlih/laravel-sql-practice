@@ -3,10 +3,10 @@
 @section('title', 'Books')
 
 @section('content')
-    <div class="w-full flex items-center justify-between mb-10">
+    <div class="max-w-5xl w-full md:flex items-center justify-between mb-10">
         <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Peminjaman Buku</h1>
 
-        <form action="/anggota" method="GET" class="max-w-xs w-full flex items-center gap-4 ">
+        <form action="/peminjaman" method="GET" class="md:max-w-xs w-full flex items-center gap-4 md:mt-0 mt-4">
             <input type="text" name="judul" placeholder="Ketik judul buku..."
                 class="w-full bg-white p-2 rounded-lg outline-none shadow-lg" value="{{ request('judul') }}">
 
@@ -18,54 +18,52 @@
     </div>
 
     <!-- Kontainer Pembungkus Tabel -->
-    <div class="w-full  bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div>
-            <table class="w-full text-left border-collapse">
-                <!-- Header Tabel -->
-                <thead>
-                    <tr class="bg-[#F9F5FF] border-b border-gray-200 text-gray-600 text-xs uppercase tracking-wider">
-                        <th class="py-4 px-6 font-semibold">No</th>
-                        <th class="py-4 px-6 font-semibold">Judul Buku</th>
-                        <th class="py-4 px-6 font-semibold">Peminjam</th>
-                        <th class="py-4 px-6 font-semibold">Tanggal Pinjam</th>
-                        <th class="py-4 px-6 font-semibold">Tanggal Kembali</th>
-                        <th class="py-4 px-9 font-semibold">Status</th>
-                        <th class="py-4 px-9 font-semibold">Aksi</th>
+    <div class="max-w-5xl w-full  bg-white rounded-xl shadow-lg overflow-x-auto border border-gray-100">
+        <table class="w-full min-w-[700px] text-left border-collapse whitespace-nowrap">
+            <!-- Header Tabel -->
+            <thead>
+                <tr class="bg-[#F9F5FF] border-b border-gray-200 text-gray-600 text-xs uppercase tracking-wider">
+                    <th class="py-4 px-6 font-semibold">No</th>
+                    <th class="py-4 px-6 font-semibold">Judul Buku</th>
+                    <th class="py-4 px-6 font-semibold">Peminjam</th>
+                    <th class="py-4 px-6 font-semibold">Tanggal Pinjam</th>
+                    <th class="py-4 px-6 font-semibold">Tanggal Kembali</th>
+                    <th class="py-4 px-9 font-semibold">Status</th>
+                    <th class="py-4 px-9 font-semibold">Aksi</th>
+                </tr>
+            </thead>
+
+            <!-- Isi Tabel -->
+            <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                @forelse ($borrowings as $borrowing)
+                    <tr class="hover:bg-purple-50/40 transition duration-150">
+                        <td class="py-4 px-6 font-medium text-gray-900">{{ $loop->iteration }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->judul_buku }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->nama_peminjam }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->tanggal_pinjam }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-800">
+                            {{ $borrowing->tanggal_kembali_seharusnya }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-800  ">
+                            <span
+                                class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">{{ $borrowing->status }}</span>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <a href="/peminjaman/{{ $borrowing->id }}"
+                                class="bg-[#F1E8FD] hover:bg-[#E5D5FC] text-purple-800 shadow-lg p-2 px-3 rounded-lg font-semibold text-xs transition inline-flex items-center gap-1">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                                <span>Detail</span>
+                            </a>
+                        </td>
                     </tr>
-                </thead>
+                @empty
+                    <tr>
+                        <td colspan="6" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman
+                        </td>
+                    </tr>
+                @endforelse
 
-                <!-- Isi Tabel -->
-                <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
-                    @forelse ($borrowings as $borrowing)
-                        <tr class="hover:bg-purple-50/40 transition duration-150">
-                            <td class="py-4 px-6 font-medium text-gray-900">{{ $loop->iteration }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->judul_buku }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->nama_peminjam }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->tanggal_pinjam }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800">
-                                {{ $borrowing->tanggal_kembali_seharusnya }}</td>
-                            <td class="py-4 px-6 font-semibold text-gray-800  ">
-                                <span
-                                    class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">{{ $borrowing->status }}</span>
-                            </td>
-                            <td class="py-4 px-6 text-center">
-                                <a href="/peminjaman/{{ $borrowing->id }}"
-                                    class="bg-[#F1E8FD] hover:bg-[#E5D5FC] text-purple-800 shadow-lg p-2 px-3 rounded-lg font-semibold text-xs transition inline-flex items-center gap-1">
-                                    <i data-feather="eye" class="w-4 h-4"></i>
-                                    <span>Detail</span>
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman
-                            </td>
-                        </tr>
-                    @endforelse
-
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
 
     <button
@@ -74,9 +72,9 @@
     </button>
 
     <!-- Modal Backdrop -->
-    <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
         <!-- Kotak Modal Menambahkan Anggota -->
-        <div class="add-member-modal max-w-sm w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
+        <div class="add-member-modal lg:max-w-sm max-w-md w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
             <form action="/anggota" method="POST" class="flex flex-col gap-4">
                 <h3 class="text-xl font-bold text-gray-800 ">Tambah Anggota</h3>
                 <input type="text" name="nama" placeholder="Ketik nama anggota..."

@@ -11,7 +11,7 @@
         <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Edit Buku</h1>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl w-full">
+    <div class="bg-white rounded-xl shadow-lg p-6 lg:max-w-2xl w-full">
         <form action="/buku/{{ $book->id }}" method="POST" enctype="multipart/form-data"
             class="flex flex-col gap-4 w-full">
             @csrf

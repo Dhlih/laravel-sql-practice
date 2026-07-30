@@ -15,13 +15,7 @@
             </div>
         </div>
 
-        <!-- Dynamic Status Badge dengan Live Dot Indicator -->
-        <div
-            class="flex items-center gap-2.5 px-4 py-2 rounded-xl text-sm font-bold shadow-sm border {{ $borrowing->status == 'kembali' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200' }}">
-            <span
-                class="w-2.5 h-2.5 rounded-full {{ $borrowing->status == 'kembali' ? 'bg-emerald-500' : 'bg-rose-500 animate-pulse' }}"></span>
-            <span>{{ $borrowing->status == 'kembali' ? 'Sudah Dikembalikan' : 'Sedang Dipinjam' }}</span>
-        </div>
+
     </div>
 
     <!-- Layout Asimetris (Grid 12 Kolom) -->
@@ -30,10 +24,10 @@
         <!-- Kiri: Card Visual Buku (4 Kolom) -->
         <div class="lg:col-span-4 bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center border border-gray-100/80">
             <div
-                class="relative w-full aspect-[3/4] mb-5 rounded-xl overflow-hidden shadow-md bg-[#ECEFF5] flex items-center justify-center group">
+                class="relative w-full  mb-5 rounded-xl overflow-hidden shadow-md bg-[#ECEFF5] flex items-center justify-center group">
                 @if ($borrowing->cover)
                     <img src="{{ asset('storage/' . $borrowing->cover) }}" alt="{{ $borrowing->judul_buku }}"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-300">
                 @else
                     <div class="flex flex-col items-center gap-2 text-gray-400">
                         <i data-feather="book-open" class="w-12 h-12"></i>
@@ -42,9 +36,13 @@
                 @endif
             </div>
 
-            <div class="w-full text-center">
-
-                <h2 class="text-lg font-bold text-gray-900 leading-snug line-clamp-2">{{ $borrowing->judul_buku }}</h2>
+            <div class="W-1/5 text-center">
+                <div
+                    class="p-2 rounded-xl text-xs font-bold shadow-sm border {{ $borrowing->status == 'kembali' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200' }}">
+                    <span>{{ $borrowing->status == 'kembali' ? 'Sudah Dikembalikan' : 'Sedang Dipinjam' }}</span>
+                </div>
+                <h2 class="md:text-lg text-xl font-bold text-gray-900 leading-snug line-clamp-2 mt-2">
+                    {{ $borrowing->judul_buku }}</h2>
                 <span class="text-opacity-85">{{ $borrowing->penulis }}</span>
             </div>
         </div>
@@ -136,4 +134,6 @@
 
         </div>
     </div>
+
+
 @endsection

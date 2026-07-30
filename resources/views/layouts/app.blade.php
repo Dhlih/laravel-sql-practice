@@ -15,7 +15,7 @@
         </div>
 
         {{-- Mobile Navbar --}}
-        <div class="mobile-navbar w-full bg-white px-6 py-3 shadow-lg md:hidden block">
+        <div class="mobile-navbar w-full bg-white px-6 py-3 shadow-lg lg:hidden block">
             <div class="flex items-center gap-2">
                 <button class="show-sidebar-btn cursor-pointer hover:bg-[#F1E8FD] p-2 rounded-lg transition">
                     <i data-feather="menu" class="w-5 h-5"></i>
@@ -29,10 +29,10 @@
         <div class="min-h-screen w-full flex">
             {{-- Sidebar --}}
             <aside
-                class="sidebar fixed top-0 left-0 max-w-[16rem] h-screen w-64 bg-white p-4 z-30 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+                class="sidebar fixed top-0 left-0 max-w-[16rem] h-screen w-64 bg-white p-4 z-30 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
                 <div class="flex items-center gap-2">
                     <button
-                        class="hide-sidebar-btn cursor-pointer hover:bg-[#F1E8FD] p-2 rounded-lg transition md:hidden block">
+                        class="hide-sidebar-btn cursor-pointer hover:bg-[#F1E8FD] p-2 rounded-lg transition block lg:hidden">
                         <i data-feather="menu" class="w-5 h-5"></i>
                     </button>
                     <a class="cursor-pointer" href="/buku">
@@ -80,7 +80,7 @@
                 </div>
             </aside>
 
-            <main class="md:ml-72 md:mr-12 flex-1 p-6">
+            <main class="lg:ml-72 lg:mr-12 flex-1 p-6 min-w-0 ">
                 @yield('content')
             </main>
         </div>

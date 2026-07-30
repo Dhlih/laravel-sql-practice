@@ -21,7 +21,6 @@ Route::middleware([RedirectIfAuthenticate::class])->group(function () {
 Route::middleware([Authenticate::class])->group(function () {
     # Dashboard routes
 
-
     # Books static routes
     Route::get('/buku', [App\Http\Controllers\BooksController::class, 'show_books']);
     Route::get('/buku/tambah', [App\Http\Controllers\BooksController::class, 'show_create_book']);
