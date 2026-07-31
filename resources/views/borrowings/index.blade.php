@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Books')
+@section('title', 'Peminjaman Buku')
 
 @section('content')
     <div class="max-w-5xl w-full md:flex items-center justify-between mb-10">
-        <h1 class="md:text-4xl text-3xl  font-bold text-gray-800">Peminjaman Buku</h1>
+        <h1 class="md:text-4xl text-3xl font-bold text-gray-800">Peminjaman Buku</h1>
 
+        <!-- Form Pencarian Tabel Peminjaman -->
         <form action="/peminjaman" method="GET" class="md:max-w-xs w-full flex items-center gap-4 md:mt-0 mt-4">
             <input type="text" name="judul" placeholder="Ketik judul buku..."
                 class="w-full bg-white p-2 rounded-lg outline-none shadow-lg" value="{{ request('judul') }}">
@@ -18,7 +19,7 @@
     </div>
 
     <!-- Kontainer Pembungkus Tabel -->
-    <div class="max-w-5xl w-full  bg-white rounded-xl shadow-lg overflow-x-auto border border-gray-100">
+    <div class="max-w-5xl w-full bg-white rounded-xl shadow-lg overflow-x-auto border border-gray-100">
         <table class="w-full min-w-[700px] text-left border-collapse whitespace-nowrap">
             <!-- Header Tabel -->
             <thead>
@@ -43,9 +44,11 @@
                         <td class="py-4 px-6 font-semibold text-gray-800">{{ $borrowing->tanggal_pinjam }}</td>
                         <td class="py-4 px-6 font-semibold text-gray-800">
                             {{ $borrowing->tanggal_kembali_seharusnya }}</td>
-                        <td class="py-4 px-6 font-semibold text-gray-800  ">
+                        <td class="py-4 px-6 font-semibold text-gray-800">
                             <span
-                                class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">{{ $borrowing->status }}</span>
+                                class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                {{ $borrowing->status }}
+                            </span>
                         </td>
                         <td class="py-4 px-6 text-center">
                             <a href="/peminjaman/{{ $borrowing->id }}"
@@ -57,33 +60,71 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman
-                        </td>
+                        <td colspan="7" class="py-4 px-6 text-center text-gray-500">Tidak ada data peminjaman</td>
                     </tr>
                 @endforelse
-
             </tbody>
         </table>
     </div>
 
+    <!-- Tombol Floating Tambah Peminjaman -->
     <button
-        class="add-member-btn bg-[#E5D5FC] rounded-full p-3 font-semibold shadow-lg hover:bg-[#F1E8FD] transition cursor-pointer absolute bottom-10 right-10">
+        class="add-member-btn bg-[#E5D5FC] rounded-full p-3 font-semibold shadow-lg hover:bg-[#F1E8FD] transition cursor-pointer fixed bottom-10 right-10 z-40">
         <i data-feather="plus" class="w-8 h-8"></i>
     </button>
 
     <!-- Modal Backdrop -->
     <div class="backdrop fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
-        <!-- Kotak Modal Menambahkan Anggota -->
+        <!-- Kotak Modal Menambahkan Peminjaman -->
         <div class="add-member-modal lg:max-w-sm max-w-md w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
-            <form action="/anggota" method="POST" class="flex flex-col gap-4">
-                <h3 class="text-xl font-bold text-gray-800 ">Tambah Anggota</h3>
-                <input type="text" name="nama" placeholder="Ketik nama anggota..."
-                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
-                <input type="number" name="telepon" placeholder="Ketik telepon anggota..."
-                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
-                <button
-                    class="bg-[#E5D5FC] p-2 rounded-lg font-semibold shadow-lg mt-2 hover:bg-[#F1E8FD] transition cursor-pointer">Tambah
-                    anggota</button>
+            <form action="/peminjaman" method="POST" class="flex flex-col gap-4">
+                @csrf
+                <h3 class="text-xl font-bold text-gray-800">Tambah Peminjaman</h3>
+
+                <!-- Input Live Search Anggota -->
+                <div class="relative flex flex-col gap-1">
+                    <label for="search-member" class="text-xs font-semibold text-gray-600">Nama Anggota</label>
+                    <input type="text" id="search-member" placeholder="Ketik nama anggota..." autocomplete="off" required
+                        class="w-full border border-gray-200 p-2 rounded-lg outline-none text-gray-700">
+
+                    <input type="hidden" name="id_member" id="id-member" required>
+
+                    <div id="dropdown-member"
+                        class="hidden absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl z-20 max-h-48 overflow-y-auto mt-1 divide-y divide-gray-100">
+                    </div>
+                </div>
+
+                <!-- Input Live Search Buku -->
+                <div class="relative flex flex-col gap-1">
+                    <label for="search-book" class="text-xs font-semibold text-gray-600">Judul Buku</label>
+                    <input type="text" id="search-book" placeholder="Ketik judul buku..." autocomplete="off" required
+                        class="w-full border border-gray-200 p-2 rounded-lg outline-none text-gray-700">
+
+                    <input type="hidden" name="id_buku" id="id-book" required>
+
+                    <div id="dropdown-book"
+                        class="hidden absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl z-20 max-h-48 overflow-y-auto mt-1 divide-y divide-gray-100">
+                    </div>
+                </div>
+
+                <!-- Input Tanggal Pinjam -->
+                <div class="flex flex-col gap-1">
+                    <label for="tanggal_pinjam" class="text-xs font-semibold text-gray-600">Tanggal Pinjam</label>
+                    <input type="date" name="tanggal_pinjam" id="tanggal_pinjam" required
+                        class="w-full border border-gray-200 p-2 rounded-lg outline-none text-gray-700">
+                </div>
+
+                <!-- Input Tenggat Kembali -->
+                <div class="flex flex-col gap-1">
+                    <label for="tenggat_kembali" class="text-xs font-semibold text-gray-600">Tenggat Kembali</label>
+                    <input type="date" name="tenggat_kembali" id="tenggat_kembali" required
+                        class="w-full border border-gray-200 p-2 rounded-lg outline-none text-gray-700">
+                </div>
+
+                <button type="submit"
+                    class="bg-[#E5D5FC] p-2 rounded-lg font-semibold shadow-lg mt-2 hover:bg-[#F1E8FD] transition cursor-pointer">
+                    Tambah peminjaman
+                </button>
             </form>
 
             <div class="absolute top-3 right-3">
@@ -93,84 +134,90 @@
                 </button>
             </div>
         </div>
-
-        <!-- Kotak Modal Mengedit Anggota -->
-        <div class="edit-member-modal max-w-sm w-full rounded-xl hidden bg-white shadow-2xl p-6 relative">
-            <form id="edit-form" method="POST" class="flex flex-col gap-4">
-                @csrf
-                @method('PUT')
-                <h3 class="text-xl font-bold text-gray-800 ">Edit Anggota</h3>
-                <input type="text" name="nama" id="edit-nama" placeholder="Ketik nama anggota..."
-                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
-                <input type="number" name="telepon" id="edit-telepon" placeholder="Ketik telepon anggota..."
-                    class="w-full border border-gray-200 p-2 rounded-lg outline-none">
-                <button
-                    class="bg-[#E5D5FC] p-2 rounded-lg font-semibold shadow-lg mt-2 hover:bg-[#F1E8FD] transition cursor-pointer">Edit
-                    anggota</button>
-            </form>
-
-            <div class="absolute top-3 right-3">
-                <button class="close-edit-popup-btn text-gray-500 hover:text-gray-700 transition cursor-pointer"
-                    title="Tutup">
-                    <i data-feather="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
     </div>
 
     <script>
+        // Modal Control
         const backdrop = document.querySelector(".backdrop");
-
-        // Tambah Anggota
         const addMemberBtn = document.querySelector(".add-member-btn");
-        const addMemberPoUp = document.querySelector(".add-member-modal");
+        const addMemberPopUp = document.querySelector(".add-member-modal");
         const closeAddPopupBtn = document.querySelector(".close-add-popup-btn");
 
-        addMemberBtn.addEventListener("click", showPopUp = () => {
+        addMemberBtn.addEventListener("click", () => {
             backdrop.classList.remove("hidden");
             backdrop.classList.add("flex");
-            addMemberPoUp.classList.remove("hidden");
-        })
-
-        closeAddPopupBtn.addEventListener("click", hideAddMemberPopUp = () => {
-            backdrop.classList.remove("flex");
-            backdrop.classList.add("hidden");
-            addMemberPoUp.classList.add("hidden");
-        })
-
-        // Edit Anggota
-        const editMemberPoUp = document.querySelector(".edit-member-modal");
-        const editMemberBtns = document.querySelectorAll(".edit-member-btn");
-        const closeEditPopupBtn = document.querySelector(".close-edit-popup-btn");
-
-        const editForm = document.querySelector("#edit-form");
-        const editNamaInput = document.querySelector("#edit-nama");
-        const editTeleponInput = document.querySelector("#edit-telepon");
-
-        // Loop seluruh tombol edit di setiap baris tabel
-        editMemberBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                // Ambil data dari data-id, data-nama, data-telepon
-                const id = btn.dataset.id;
-                const nama = btn.dataset.nama;
-                const telepon = btn.dataset.telepon;
-
-                // Set action form dan value input modal
-                editForm.action = `/anggota/${id}`;
-                editNamaInput.value = nama;
-                editTeleponInput.value = telepon;
-
-                // Tampilkan modal
-                backdrop.classList.remove("hidden");
-                backdrop.classList.add("flex");
-                editMemberPoUp.classList.remove("hidden");
-            });
+            addMemberPopUp.classList.remove("hidden");
         });
 
-        closeEditPopupBtn.addEventListener("click", hideEditMemberPopUp = () => {
+        closeAddPopupBtn.addEventListener("click", () => {
             backdrop.classList.remove("flex");
             backdrop.classList.add("hidden");
-            editMemberPoUp.classList.add("hidden");
-        })
+            addMemberPopUp.classList.add("hidden");
+        });
+
+        // Live Search Reusable Function dengan Debounce
+        function setupLiveSearch(inputId, hiddenId, dropdownId, endpointUrl, displayKey) {
+            const inputEl = document.getElementById(inputId);
+            const hiddenEl = document.getElementById(hiddenId);
+            const dropdownEl = document.getElementById(dropdownId);
+
+            let debounceTimer;
+
+            inputEl.addEventListener('input', function() {
+                const query = this.value.trim();
+
+                clearTimeout(debounceTimer);
+                hiddenEl.value = '';
+
+                if (query.length < 2) {
+                    dropdownEl.innerHTML = '';
+                    dropdownEl.classList.add('hidden');
+                    return;
+                }
+
+                debounceTimer = setTimeout(async () => {
+                    try {
+                        const response = await fetch(`${endpointUrl}?q=${encodeURIComponent(query)}`);
+                        const data = await response.json();
+                        console.log(data)
+
+                        if (data.length === 0) {
+                            dropdownEl.innerHTML =
+                                '<div class="p-3 text-xs text-gray-400">Data tidak ditemukan</div>';
+                        } else {
+                            dropdownEl.innerHTML = data.map(item => `
+                                <div class="p-2.5 hover:bg-purple-50 cursor-pointer text-sm text-gray-700 transition"
+                                     data-id="${item.id}" data-label="${item[displayKey]}">
+                                    ${item[displayKey]}
+                                </div>
+                            `).join('');
+
+                            dropdownEl.querySelectorAll('div[data-id]').forEach(element => {
+                                element.addEventListener('click', function() {
+                                    inputEl.value = this.dataset.label;
+                                    hiddenEl.value = this.dataset.id;
+                                    dropdownEl.classList.add('hidden');
+                                });
+                            });
+                        }
+
+                        dropdownEl.classList.remove('hidden');
+                    } catch (error) {
+                        console.error('Gagal mengambil data:', error);
+                    }
+                }, 300);
+            });
+
+            // Sembunyikan dropdown saat klik di luar elemen
+            document.addEventListener('click', function(e) {
+                if (!inputEl.contains(e.target) && !dropdownEl.contains(e.target)) {
+                    dropdownEl.classList.add('hidden');
+                }
+            });
+        }
+
+        // Inisialisasi Live Search Anggota dan Buku
+        setupLiveSearch('search-member', 'id-member', 'dropdown-member', '/api/anggota/search', 'nama');
+        setupLiveSearch('search-book', 'id-book', 'dropdown-book', '/api/buku/search', 'judul');
     </script>
 @endsection
