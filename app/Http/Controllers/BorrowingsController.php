@@ -52,4 +52,27 @@ class BorrowingsController extends Controller
 
         return view("borrowings.show", ["borrowing" => $borrowing]);
     }
+
+    public function add_borrowing(Request $request)
+    {
+        $validated = $request->validate([
+            'id_member' => 'required|exists:MEMBERS,id',
+            'id_buku' => 'required|exists:BOOKS,id',
+            'tanggal_pinjam' => 'required|date',
+            'tenggat_kembali' => 'required|date|after:tanggal_pinjam',
+        ]);
+
+        $member_id = $validated['id_member'];
+        $book_id = $validated['id_buku'];
+        $tanggal_pinjam = $validated['tanggal_pinjam'];
+        $tenggat_kembali = $validated['tenggat_kembali'];
+
+        try {
+            DB::insert("INSERT INTO BORROWINGS (member_id, book_id, tanggal_pinjam, tanggal_kembali_seharusnya, status) VALUES (?, ?, ?, ?, ?)", [$member_id, $book_id, $tanggal_pinjam, $tenggat_kembali, 'dipinjam']);
+            return redirect("/peminjaman");
+        } catch (\Exception $e) {
+            dd("error", $e);
+            return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat menambahkan peminjaman.']);
+        }
+    }
 }
