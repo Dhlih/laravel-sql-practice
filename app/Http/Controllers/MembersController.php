@@ -54,4 +54,14 @@ class MembersController extends Controller
         DB::delete("DELETE FROM MEMBERS WHERE id = ?", [$id]);
         return redirect("/anggota");
     }
+
+    public function search_members(Request $request)
+    {
+        $query = $request->query('q', '');
+        if (strlen($query) < 2) {
+            return response()->json([]);
+        }
+        $members = DB::select("SELECT id, nama FROM MEMBERS WHERE nama LIKE ? LIMIT 5", ["%$query%"]);
+        return response()->json($members);
+    }
 }
