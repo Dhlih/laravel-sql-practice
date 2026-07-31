@@ -12,26 +12,26 @@
     </div>
 
     <div class="bg-white rounded-xl shadow-lg p-6 lg:max-w-2xl w-full">
-        <form action="/buku/{{ $book->id }}" method="POST" enctype="multipart/form-data"
+        <form action="/buku/{{ $book->id }}" id="form-buku" method="POST" enctype="multipart/form-data"
             class="flex flex-col gap-4 w-full">
             @csrf
             @method('PUT')
             <div class="flex md:flex-row flex-col items-center gap-4">
                 <div class="w-full flex flex-col gap-2">
                     <label for="judul" class="font-semibold">Judul Buku</label>
-                    <input type="text" name="judul" placeholder="Judul Buku"
+                    <input type="text" id="judul" name="judul" placeholder="Judul Buku"
                         class="w-full bg-[#ECEFF5] p-2 rounded-lg outline-none" value="{{ $book->judul }}">
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <label for="penulis" class="font-semibold">Penulis Buku</label>
-                    <input type="text" name="penulis" placeholder="Penulis Buku"
+                    <input type="text" id="penulis" name="penulis" placeholder="Penulis Buku"
                         class="w-full bg-[#ECEFF5] p-2 rounded-lg outline-none" value="{{ $book->penulis }}">
                 </div>
             </div>
 
             <div class="flex flex-col gap-2">
                 <label for="deskripsi" class="font-semibold">Deskripsi Buku</label>
-                <textarea name="deskripsi" rows="4" placeholder="Deskripsi Buku"
+                <textarea name="deskripsi" id="deskripsi" rows="4" placeholder="Deskripsi Buku"
                     class="w-full bg-[#ECEFF5] p-2 rounded-lg outline-none resize-none">{{ $book->deskripsi }}</textarea>
             </div>
             <div class="flex flex-col gap-2">
@@ -46,6 +46,7 @@
                     onchange="previewImage(event)">
 
             </div>
+            <span class="text-red-500 hidden" id="errorMessage">*Wajib mengisi semua field</span>
             <button type="submit" class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-bold hover:bg-[#E0D3F1] cursor-pointer">Edit
                 Buku</button>
         </form>
@@ -59,6 +60,21 @@
     </div>
 
     <script>
+        const formBuku = document.getElementById('form-buku');
+        formBuku.addEventListener("submit", () => {
+            const judul = document.getElementById('judul').value.trim();
+            const penulis = document.getElementById('penulis').value.trim();
+            const deskripsi = document.getElementById('deskripsi').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!judul || !penulis || !deskripsi ) {
+                errorMessage.classList.remove('hidden');
+                event.preventDefault();
+            } else {
+                errorMessage.classList.add('hidden');
+            }
+        });
+
         function previewImage(event) {
             const input = event.target;
             const preview = document.getElementById('cover-preview');

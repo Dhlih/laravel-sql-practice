@@ -13,8 +13,9 @@
     <div class="container h-screen flex items-center justify-center bg-[#ECEFF5]">
         <div class="max-w-xs w-full">
             <h1 class="text-center font-bold text-3xl">Login SiPustaka</h1>
+            {{-- card --}}
             <div class="rounded-xl p-6 mt-8 bg-white shadow-lg">
-                <form action="/login" method="POST" class="flex flex-col gap-4">
+                <form action="/login" method="POST" class="flex flex-col gap-2">
                     @csrf
                     <div class="flex flex-col gap-2">
                         <label for="email" class="font-semibold">Email</label>
@@ -33,11 +34,15 @@
                             </button>
                         </div>
                     </div>
+                    @if (session('error'))
+                        <span class="text-red-500">*{{ session('error') }}</span>
+                    @endif
                     <button type="submit"
-                        class="bg-[#F1E8FD] rounded-xl p-3 mt-2 font-bold hover:bg-[#E0D3F1] cursor-pointer">
+                        class="bg-[#F1E8FD] rounded-xl p-3 mt-4 font-bold hover:bg-[#E0D3F1] cursor-pointer">
                         Login
                     </button>
                 </form>
+
             </div>
         </div>
     </div>
