@@ -33,6 +33,8 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('/buku/{id}/edit', [App\Http\Controllers\BooksController::class, 'show_edit_book']);
     Route::get('/buku/{id}/edit', [App\Http\Controllers\BooksController::class, 'show_edit_book']);
 
+    Route::get('/api/buku/search', [App\Http\Controllers\BooksController::class, 'search_books']);
+
     # Members static routes
     Route::get('/anggota', [App\Http\Controllers\MembersController::class, 'show_members']);
     Route::post('/anggota', [App\Http\Controllers\MembersController::class, 'add_member']);
@@ -41,7 +43,10 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::put('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'edit_member']);
     Route::delete('/anggota/{id}', [App\Http\Controllers\MembersController::class, 'delete_member']);
 
+    Route::get('/api/anggota/search', [App\Http\Controllers\MembersController::class, 'search_members']);
+
     # Borrowings static routes
     Route::get('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'show_borrowings']);
     Route::get('/peminjaman/{id}', [App\Http\Controllers\BorrowingsController::class, 'show_borrowing']);
+    Route::post('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'add_borrowing']);
 });
