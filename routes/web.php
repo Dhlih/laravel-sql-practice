@@ -49,4 +49,5 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'show_borrowings']);
     Route::get('/peminjaman/{id}', [App\Http\Controllers\BorrowingsController::class, 'show_borrowing']);
     Route::post('/peminjaman', [App\Http\Controllers\BorrowingsController::class, 'add_borrowing']);
+    Route::patch('/peminjaman/{id}/status', [App\Http\Controllers\BorrowingsController::class, 'update_status']);
 });
