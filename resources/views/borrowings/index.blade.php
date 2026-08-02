@@ -45,10 +45,19 @@
                         <td class="py-4 px-6 font-semibold text-gray-800">
                             {{ $borrowing->tanggal_kembali_seharusnya }}</td>
                         <td class="py-4 px-6 font-semibold text-gray-800">
-                            <span
-                                class="rounded-lg px-3 py-1 shadow-lg {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ $borrowing->status }}
-                            </span>
+                            <!-- Form Inline untuk Update Status -->
+                            <form action="/peminjaman/{{ $borrowing->id }}/status" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <select name="status" onchange="this.form.submit()"
+                                    class="rounded-lg px-2.5 py-1 text-xs font-bold outline-none cursor-pointer transition border
+            {{ $borrowing->status == 'kembali' ? 'bg-green-100 text-green-800 border-green-300' : 'bg-red-100 text-red-800 border-red-300' }}">
+                                    <option value="dipinjam" {{ $borrowing->status == 'dipinjam' ? 'selected' : '' }}>
+                                        dipinjam</option>
+                                    <option value="kembali" {{ $borrowing->status == 'kembali' ? 'selected' : '' }}>
+                                        kembali</option>
+                                </select>
+                            </form>
                         </td>
                         <td class="py-4 px-6 text-center">
                             <a href="/peminjaman/{{ $borrowing->id }}"
