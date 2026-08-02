@@ -62,17 +62,31 @@ class BorrowingsController extends Controller
             'tenggat_kembali' => 'required|date|after:tanggal_pinjam',
         ]);
 
-        $member_id = $validated['id_member'];
-        $book_id = $validated['id_buku'];
-        $tanggal_pinjam = $validated['tanggal_pinjam'];
-        $tenggat_kembali = $validated['tenggat_kembali'];
 
         try {
-            DB::insert("INSERT INTO BORROWINGS (member_id, book_id, tanggal_pinjam, tanggal_kembali_seharusnya, status) VALUES (?, ?, ?, ?, ?)", [$member_id, $book_id, $tanggal_pinjam, $tenggat_kembali, 'dipinjam']);
+            DB::insert("INSERT INTO BORROWINGS (member_id, book_id, tanggal_pinjam, tanggal_kembali_seharusnya, status) VALUES (?, ?, ?, ?, ?)", [$validated['id_member'], $validated['id_buku'], $validated['tanggal_pinjam'], $validated['tenggat_kembali'], 'dipinjam']);
             return redirect("/peminjaman");
         } catch (\Exception $e) {
             dd("error", $e);
             return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat menambahkan peminjaman.']);
+        }
+    }
+
+    public function update_status(Request $request, string $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:dipinjam,kembali',
+        ]);
+
+        try {
+            DB::update(
+                "UPDATE BORROWINGS SET status = ? WHERE id = ?",
+                [$validated['status'], $id]
+            );
+
+            return back()->with('success', 'Status peminjaman berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Gagal memperbarui status peminjaman.']);
         }
     }
 }
